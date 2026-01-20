@@ -2,7 +2,6 @@ import { ReactNode, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Sidebar } from "./Sidebar";
 import { TopNavbar } from "./TopNavbar";
-import { Sheet, SheetContent } from "@/components/ui/sheet";
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -10,7 +9,7 @@ interface DashboardLayoutProps {
 }
 
 export const DashboardLayout = ({ children, role }: DashboardLayoutProps) => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
   const navigate = useNavigate();
 
   // Check if user is logged in with correct role
@@ -23,32 +22,46 @@ export const DashboardLayout = ({ children, role }: DashboardLayoutProps) => {
     }
   }, [role, navigate]);
 
+  // Default sidebar closed on mobile
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 1024) {
+        setSidebarOpen(false);
+      } else {
+        setSidebarOpen(true);
+      }
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
-    <div className="min-h-screen bg-background p-4 lg:p-6">
-      {/* Top Navbar */}
+    <div className="min-h-screen bg-background">
+      {/* Top Navbar - Always on top */}
       <TopNavbar 
-        onMenuClick={() => setSidebarOpen(true)} 
+        onMenuClick={() => setSidebarOpen(!sidebarOpen)} 
         showMenuButton={true}
       />
       
-      {/* Mobile Sidebar Sheet */}
-      <Sheet open={sidebarOpen} onOpenChange={setSidebarOpen}>
-        <SheetContent side="left" className="w-72 p-4 bg-background">
-          <Sidebar role={role} onItemClick={() => setSidebarOpen(false)} />
-        </SheetContent>
-      </Sheet>
-
-      {/* Main layout with sidebar and content */}
-      <div className="flex gap-4 lg:gap-6 mt-4 lg:mt-6">
-        {/* Desktop Sidebar */}
-        <div className="hidden lg:block w-64 flex-shrink-0">
-          <div className="sticky top-6">
+      {/* Content area below navbar */}
+      <div className="flex">
+        {/* Sidebar - pushes content, doesn't overlay */}
+        <div 
+          className={`
+            ${sidebarOpen ? 'w-64' : 'w-0'} 
+            flex-shrink-0 
+            transition-all duration-300 ease-in-out
+            overflow-hidden
+          `}
+        >
+          <div className="w-64 h-[calc(100vh-80px)] sticky top-[80px] p-4">
             <Sidebar role={role} />
           </div>
         </div>
         
-        {/* Main content area */}
-        <main className="flex-1 min-w-0">
+        {/* Main content area - adjusts width based on sidebar */}
+        <main className="flex-1 min-w-0 p-4 lg:p-6 transition-all duration-300">
           {children}
         </main>
       </div>

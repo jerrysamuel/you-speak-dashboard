@@ -40,7 +40,7 @@ export const TopNavbar = ({
 
         {/* Middle - Teacher Navigation */}
         {role === "teacher" && (
-          <nav className="hidden lg:flex items-center gap-6">
+          <nav className="hidden ml-64  lg:flex items-center gap-6">
             <span className="text-sm font-medium text-muted-foreground hover:text-foreground cursor-pointer">
               Home
             </span>

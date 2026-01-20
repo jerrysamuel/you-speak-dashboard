@@ -6,13 +6,13 @@ import { ArenaParticipation } from "@/components/dashboard/ArenaParticipation";
 import { ActivitySummary } from "@/components/dashboard/ActivitySummary";
 import { RecentAnnouncements } from "@/components/dashboard/RecentAnnouncements";
 
-const Index = () => {
+const SchoolDashboard = () => {
   return (
     <DashboardLayout>
       <div className="space-y-6">
         {/* Welcome Banner */}
         <WelcomeBanner />
-
+        <h2 className="text-2xl font-semibold">General Overview</h2>
         {/* Main Grid Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Left Column - Active Classes */}
@@ -39,4 +39,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default SchoolDashboard;

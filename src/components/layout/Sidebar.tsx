@@ -145,7 +145,7 @@ export const Sidebar = ({ role, onItemClick }: SidebarProps) => {
         ))}
       </nav>
 
-      <div className="p-4 border-t border-border">
+      <div className="p-4 mt-24 border-t border-border">
         <button 
           onClick={handleLogout}
           className="flex items-center gap-3 px-4 py-3 w-full text-sm font-medium text-muted-foreground hover:text-destructive transition-colors"

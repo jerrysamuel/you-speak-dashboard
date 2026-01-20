@@ -5,11 +5,13 @@ export default function Login() {
   const navigate = useNavigate();
 
   const loginAsSchool = () => {
+    localStorage.clear();
     localStorage.setItem("role", "school");
     navigate("/school/dashboard");
   };
 
   const loginAsTeacher = () => {
+    localStorage.clear();
     localStorage.setItem("role", "teacher");
     navigate("/teacher/dashboard");
   };

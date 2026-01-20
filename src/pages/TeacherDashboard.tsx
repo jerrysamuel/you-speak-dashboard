@@ -86,8 +86,8 @@ const TeacherDashboard = () => {
                   </span>
                 )}
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-24 h-32 bg-teal-600 rounded shadow-lg flex items-center justify-center">
-                    <span className="text-white text-xs text-center px-2">TÔI TỰ HỌC</span>
+                  <div className="w-24 h-32 bg-gradient-to-br from-amber-600 to-amber-800 rounded shadow-lg flex items-center justify-center">
+                    <span className="text-white text-xs text-center px-2">Text books</span>
                   </div>
                 </div>
               </div>
